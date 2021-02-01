@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>Traveltek</h1>
+    <flight-airport-form/>
     <flight-list :flights="flights" />
     <airport-list :airports="airports" />
 
@@ -8,7 +9,7 @@
 </template>
 
 <script>
-
+import FlightAirportForm from '@/components/FlightAirportForm';
 import FlightList from '@/components/FlightList';
 import AirportList from '@/components/AirportList';
 
@@ -39,6 +40,7 @@ export default {
     eventBus.$on("refresh-data", this.fetchData);
   },
   components: {
+    'flight-airport-form': FlightAirportForm,
     'flight-list': FlightList,
     'airport-list': AirportList
   }
