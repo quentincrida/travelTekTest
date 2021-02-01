@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const createRouter = require('./helpers/create_router');
+
+app.use(cors());
+app.use(bodyParser.json());
+
 const flights = [
   {carrier: "Norwegian Air Int", depair: "BCN", destair: "LGW"},
   {carrier: "British Airways", depair: "LHR", destair: "CPT"},
@@ -9,32 +15,21 @@ const flights = [
   {carrier: "Qatar", depair: "BBN", destair: "PTO"}
   ];
 
-const bodyParser = require('body-parser');
+const airports = [
+  {name: "London Airport",abb: "LOA"},
+  {name: "Heathrow", abb: "LHR"},
+  {name: "London Stansted",abb: "STN"}
+  ];
 
-app.use(bodyParser.json());
 
-app.use(cors());
+const flightsRouter = createRouter(flights);
+app.use('/api/flights', flightsRouter);
 
-app.get('/api/flights/:id', (req, res) => {
-  res.json(flights[req.params.id]);
-});
+const airportsRouter = createRouter(airports);
+app.use('/api/airports', airportsRouter);
 
-app.get('/api/flights', function (req, res) {
-  res.json(flights);
-});
 
-app.post('/api/flights', (req, res) => {
-  flights.push(req.body);
-  res.json(flights);
-});
-app.delete('/api/flights/:id', (req, res) => {
-  flights.splice(req.params.id, 1);
-  res.json(flights);
-});
-app.put('/api/flights/:id', (req, res) => {
-  flights[req.params.id] = req.body;
-  res.json(flights);
-});
+
 
 app.listen(3000, function () {
   console.log('App running on port 3000');
