@@ -16,9 +16,9 @@ const flights = [
   ];
 
 const airports = [
-  {name: "London Airport",abb: "LOA"},
-  {name: "Heathrow", abb: "LHR"},
-  {name: "London Stansted",abb: "STN"}
+  {airport: "London Airport",abb: "LOA"},
+  {airport: "Heathrow", abb: "LHR"},
+  {airport: "London Stansted",abb: "STN"}
   ];
 
 

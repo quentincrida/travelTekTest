@@ -1,5 +1,7 @@
 <template lang="html">
+
   <form v-on:submit.prevent="handleSubmit">
+
     <label for="carrier">Carrier</label>
     <input type="text" name="carrier" v-model="carrier">
 
@@ -9,12 +11,7 @@
     <label for="destair">Destination Airport</label>
     <input type="text" name="destair" value="destair">
 
-    <label for="type">Type</label>
-      <select name="type" v-model="type">
-        <option value="" disabled>Choose...</option>
-        <option value="flights">Flight</option>
-        <option value="airports">Airport</option>
-      </select>
+
 
       <input type="submit" value="Save">
 
@@ -25,20 +22,20 @@
 <script>
 import { eventBus } from '../main';
 export default {
-  name: "flight-airport-form",
+  name: "flight-form",
   data() {
     return {
       carrier: "",
       depair: "",
-      destair: "",
-      type: ""
+      destair: ""
+
     }
   },
 
   methods: {
     handleSubmit(){
 
-      const url = `http://localost:3000/api/${this.type}`;
+      const url = `http://localost:3000/api/flight`;
       const payload = {
         carrier: this.carrier,
         depair: this.depair,
@@ -51,7 +48,7 @@ export default {
         headers: { 'Content-Type': 'application/json' }
       }).then(response => {
         eventBus.$emit("refresh-data");
-        this.carrier = this.depair = this.destair = this.type = "";
+        this.carrier = this.depair = this.destair;
       });
     }
   }
